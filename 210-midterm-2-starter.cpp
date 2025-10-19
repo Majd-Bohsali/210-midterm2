@@ -60,6 +60,35 @@ public:
         temp->next = newNode;
     }
 
+    string getName(int pos) { 
+        if (!head) {
+            cout << "List is empty." << endl;
+            return "no name";
+        }
+    
+        if (pos < 1) {
+            cout << "invalid postion"; 
+            return "no name";
+        }
+
+        Node* temp = head; 
+
+        for(int i = 1; i < pos; i ++) { 
+            if(!temp) { 
+                cout << "Position doesn't exist." << endl;
+                return "no name"; 
+            } else { 
+                temp = temp->next; 
+            }
+        }
+        if (!temp) {
+            cout << "Position doesn't exist." << endl;
+            return "no name";
+        }
+        return temp->data; 
+
+    } 
+
     void delete_val(string value) {
         if (!head) return;
 
@@ -235,8 +264,8 @@ int main() {
                 int probLeaveAny = rand() % 100 + 1; 
                 int probVIP = rand() % 100 + 1; 
 
-                if (probServed <= 40) { 
-
+                if (probServed <= 40) { // person at front is served
+                    
                 } else if (probJoin <= 60) {
 
                 } else if (probLeaveEnd <= 20) {
