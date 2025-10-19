@@ -290,12 +290,16 @@ int main() {
                     list->push_back(person); 
                 } 
                 if (probLeaveEnd <= 20) { // person at back leaves
-                    cout << "\t" << list->getBack() << "(at the rear) left the line" << endl; 
+                    cout << "\t" << list->getBack() << "exits the rear of the line" << endl; 
                     list->pop_back();
                 } 
-                if (probLeaveAny <= 10) { // anyone in line leaves
+                
+                while(list->getName(i) != "no name") { // loops throug each name
+                    if (probLeaveAny <= 10) { // anyone in line leaves
                     
+                    }
                 }
+                
                 if (probVIP <= 10) { // VIP joins front
                     getline(inputFile, person);
                     cout << "\t" << person << "(VIP) joins the front of the line" << endl; 
