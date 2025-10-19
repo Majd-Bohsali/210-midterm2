@@ -6,9 +6,11 @@
 #include <fstream>
 #include <cstdlib>
 #include <ctime> 
+#include <vector>
 using namespace std;
 
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
+const int MAX_NAME_SEL = 99;
 
 class DoublyLinkedList {
 private:
@@ -294,13 +296,13 @@ int main() {
                 int probLeaveAny = rand() % 100 + 1; 
                 int probVIP = rand() % 100 + 1; 
 
-                if (probServed <= 40) { // person at front is served
+                if (probServed <= 40 && list->getSize() > 0) { // person at front is served
                     cout << "\t" << list->getFront() << " is served" << endl; 
                     list->pop_front(); 
                 } 
-                if (probJoin <= 60) { // person added to back
+                if (probJoin <= 60 && list->getSize() > 0) { // person added to back
                     getline(inputFile, person);
-                    cout << "\t" << person << " joined the line" << endl; 
+                    cout << "\t" << person << " joins the line" << endl; 
                     list->push_back(person); 
                 } 
                 if (probLeaveEnd <= 20 && list->getSize() > 0) { // person at back leaves
