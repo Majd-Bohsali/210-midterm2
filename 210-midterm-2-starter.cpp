@@ -1,5 +1,5 @@
 // COMSC210 | Midterm 2 | Majd Bohsali
-// IDE used: Visual Studio Code
+// IDE used: Visual Studio Code     
 #include <iostream>
 using namespace std;
 
