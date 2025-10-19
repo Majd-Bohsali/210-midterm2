@@ -215,15 +215,38 @@ int main() {
     ifstream inputFile("names.txt"); // opens file
     string person; 
     DoublyLinkedList* list = new DoublyLinkedList(); 
-
+    cout << "Store Opens: " << endl; 
     if(inputFile.is_open()) { 
         for(int i = 0; i < 20; i++) { // looks through 20 time periods
-            if (i == 0) { 
+            if (i == 0) { // handles the first time period
                 for(int j = 0; j < 5; j++) { 
                     getline(inputFile, person); 
                     list->push_back(person);
-                    cout << person << endl; 
+                    cout << "\t" << person << " joins the line" << endl;
                 }
+                cout << "\tResulting line: ";
+                list->print(); 
+            } else { // handles every subsequent time period after the first
+                cout << "Time Step #" << (i + 1) << ": " << endl; 
+                // defines all the propabilities
+                int probServed = rand() % 100 + 1; 
+                int probJoin = rand() % 100 + 1; 
+                int probLeaveEnd = rand() % 100 + 1; 
+                int probLeaveAny = rand() % 100 + 1; 
+                int probVIP = rand() % 100 + 1; 
+
+                if (probServed <= 40) { 
+
+                } else if (probJoin <= 60) {
+
+                } else if (probLeaveEnd <= 20) {
+                    
+                } else if (probLeaveAny <= 10) {
+                    
+                } else if (probVIP <= 10) {
+                    
+                }
+
             }
         }
 
@@ -232,6 +255,5 @@ int main() {
         cout << "File not Found";
     }
 
-    
     return 0;
 }
