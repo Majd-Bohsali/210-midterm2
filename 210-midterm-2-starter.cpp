@@ -60,6 +60,22 @@ public:
         temp->next = newNode;
     }
 
+    string getFront() { 
+        if (!head) {
+            cout << "List is empty." << endl;
+            return "no name";
+        }
+        return head->data; 
+    } 
+
+    string getBack() { 
+        if (!tail) {
+            cout << "List is empty." << endl;
+            return "no name";
+        }
+        return tail->data; 
+    } 
+
     string getName(int pos) { 
         if (!head) {
             cout << "List is empty." << endl;
