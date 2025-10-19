@@ -12,6 +12,7 @@ const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 
 class DoublyLinkedList {
 private:
+
     struct Node {
         string data;
         Node* prev;
@@ -19,15 +20,20 @@ private:
         Node(string val, Node* p = nullptr, Node* n = nullptr) {
             data = val; 
             prev = p;
-            next = n;
+            next = n; 
         }
     };
 
     Node* head;
     Node* tail;
+    int size;
 
 public:
-    DoublyLinkedList() { head = nullptr; tail = nullptr; }
+    DoublyLinkedList() { head = nullptr; tail = nullptr; size = 0; }
+
+    int getSize() { 
+        return size; 
+    }
 
     void insert_after(string value, int position) {
         if (position < 0) {
@@ -38,6 +44,7 @@ public:
         Node* newNode = new Node(value);
         if (!head) {
             head = tail = newNode;
+            size++;
             return;
         }
 
@@ -58,6 +65,7 @@ public:
         else
             tail = newNode;
         temp->next = newNode;
+        size++; 
     }
 
     string getFront() { 
@@ -125,6 +133,7 @@ public:
         else
             tail = temp->prev; 
 
+        size--; 
         delete temp;
     }
 
@@ -162,6 +171,7 @@ public:
         Node* tempPrev = temp->prev;
         tempPrev->next = temp->next;
         temp->next->prev = tempPrev;
+        size--; 
         delete temp;
     }
 
@@ -174,6 +184,7 @@ public:
             newNode->prev = tail;
             tail = newNode;
         }
+        size++; 
     }
     
     void push_front(string v) {
@@ -185,6 +196,7 @@ public:
             head->prev = newNode;
             head = newNode;
         }
+        size++;
     }
     
     void pop_front() {
@@ -202,6 +214,7 @@ public:
         }
         else
             head = tail = nullptr;
+        size--; 
         delete temp;
     }
 
@@ -218,6 +231,7 @@ public:
         }
         else
             head = tail = nullptr;
+        size--; 
         delete temp;
     }
 
@@ -294,10 +308,12 @@ int main() {
                     list->pop_back();
                 } 
                 
-                while(list->getName(i) != "no name") { // loops throug each name
+                for(int j = 0; j < list->getSize(); j++) { // loops throug each name
                     if (probLeaveAny <= 10) { // anyone in line leaves
-                    
+                        cout << "\t" << list->getName(i) << " left the line" << endl;
+                        list->delete_pos(i);  
                     }
+                    probLeaveAny = rand() % 100 + 1; 
                 }
                 
                 if (probVIP <= 10) { // VIP joins front
