@@ -303,25 +303,25 @@ int main() {
                     cout << "\t" << person << " joined the line" << endl; 
                     list->push_back(person); 
                 } 
-                if (probLeaveEnd <= 20) { // person at back leaves
-                    cout << "\t" << list->getBack() << "exits the rear of the line" << endl; 
+                if (probLeaveEnd <= 20 && list->getSize() > 0) { // person at back leaves
+                    cout << "\t" << list->getBack() << " exits the rear of the line" << endl; 
                     list->pop_back();
                 } 
                 
                 for(int j = 0; j < list->getSize(); j++) { // loops throug each name
-                    if (probLeaveAny <= 10) { // anyone in line leaves
-                        cout << "\t" << list->getName(i) << " left the line" << endl;
-                        list->delete_pos(i);  
+                    if (probLeaveAny <= 10  && list->getSize() > 0) { // anyone in line leaves
+                        cout << "\t" << list->getName(j) << " left the line" << endl;
+                        list->delete_pos(j);  
                     }
                     probLeaveAny = rand() % 100 + 1; 
                 }
                 
                 if (probVIP <= 10) { // VIP joins front
                     getline(inputFile, person);
-                    cout << "\t" << person << "(VIP) joins the front of the line" << endl; 
+                    cout << "\t" << person << " (VIP) joins the front of the line" << endl; 
                     list->push_front(person); 
                 }
-
+  
                 cout << "\tResulting line: "; 
                 list->print();
             }
