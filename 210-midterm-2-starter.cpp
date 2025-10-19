@@ -281,18 +281,21 @@ int main() {
                 int probVIP = rand() % 100 + 1; 
 
                 if (probServed <= 40) { // person at front is served
-                    cout << "\t" << list->getName(1) << " is served" << endl; 
+                    cout << "\t" << list->getFront() << " is served" << endl; 
                     list->pop_front(); 
                 } else if (probJoin <= 60) {
                     getline(inputFile, person);
                     cout << "\t" << person << " joined the line" << endl; 
                     list->push_back(person); 
                 } else if (probLeaveEnd <= 20) {
-                    cout << "(at the rear) left the line" << endl; 
+                    cout << "\t" << list->getBack() << "(at the rear) left the line" << endl; 
+                    list->pop_back();
                 } else if (probLeaveAny <= 10) {
                     
                 } else if (probVIP <= 10) {
-                    
+                    getline(inputFile, person);
+                    cout << "\t" << person << "(VIP) joins the front of the line" << endl; 
+                    list->push_front(person); 
                 }
 
                 cout << "\tResulting line: "; 
