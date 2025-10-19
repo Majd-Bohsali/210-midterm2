@@ -1,6 +1,11 @@
 // COMSC210 | Midterm 2 | Majd Bohsali
 // IDE used: Visual Studio Code     
 #include <iostream>
+#include <iomanip>
+#include <string>
+#include <fstream>
+#include <cstdlib>
+#include <ctime> 
 using namespace std;
 
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
@@ -206,7 +211,26 @@ public:
 };
 
 int main() {
-    cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
+    srand(time(0));
+    ifstream inputFile("names.txt"); // opens file
+    string person; 
+
+    if(inputFile.is_open()) { 
+        for(int i = 0; i < 20; i++) { // looks through 20 time periods
+            if (i == 0) { 
+                for(int j = 0; j < 5; j++) { 
+                    getline(inputFile, person); 
+                    cout << person << endl; 
+                }
+            }
+        }
+
+
+        cout << "file opened";
+        inputFile.close(); 
+    } else {
+        cout << "File not Found";
+    }
 
     
     return 0;
