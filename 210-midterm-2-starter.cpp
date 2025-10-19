@@ -10,7 +10,7 @@
 using namespace std;
 
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
-const int MAX_NAME_SEL = 99;
+const int MAX_NAME_SEL = 98, MIN_NAME_SEL = 0;
 
 class DoublyLinkedList {
 private:
@@ -276,63 +276,70 @@ int main() {
     ifstream inputFile("names.txt"); // opens file
     string person; 
     DoublyLinkedList* list = new DoublyLinkedList(); 
-    cout << "Store Opens: " << endl; 
-    if(inputFile.is_open()) { 
-        for(int i = 0; i < 20; i++) { // looks through 20 time periods
-            if (i == 0) { // handles the first time period
-                for(int j = 0; j < 5; j++) { 
-                    getline(inputFile, person); 
-                    list->push_back(person);
-                    cout << "\t" << person << " joins the line" << endl;
-                }
-                cout << "\tResulting line: ";
-                list->print(); 
-            } else { // handles every subsequent time period after the first
-                cout << "Time Step #" << (i + 1) << ": " << endl; 
-                // defines all the propabilities
-                int probServed = rand() % 100 + 1; 
-                int probJoin = rand() % 100 + 1; 
-                int probLeaveEnd = rand() % 100 + 1; 
-                int probLeaveAny = rand() % 100 + 1; 
-                int probVIP = rand() % 100 + 1; 
+    vector<string> names; 
 
-                if (probServed <= 40 && list->getSize() > 0) { // person at front is served
-                    cout << "\t" << list->getFront() << " is served" << endl; 
-                    list->pop_front(); 
-                } 
-                if (probJoin <= 60 && list->getSize() > 0) { // person added to back
-                    getline(inputFile, person);
-                    cout << "\t" << person << " joins the line" << endl; 
-                    list->push_back(person); 
-                } 
-                if (probLeaveEnd <= 20 && list->getSize() > 0) { // person at back leaves
-                    cout << "\t" << list->getBack() << " exits the rear of the line" << endl; 
-                    list->pop_back();
-                } 
-                
-                for(int j = 1; j <= list->getSize(); j++) { // loops throug each name
-                    if (probLeaveAny <= 10  && list->getSize() > 0) { // anyone in line leaves
-                        cout << "\t" << list->getName(j) << " left the line" << endl;
-                        list->delete_pos(j);
-                        j--;
-                    }
-                    probLeaveAny = rand() % 100 + 1; 
-                }
-                
-                if (probVIP <= 10) { // VIP joins front
-                    getline(inputFile, person);
-                    cout << "\t" << person << " (VIP) joins the front of the line" << endl; 
-                    list->push_front(person); 
-                }
-  
-                cout << "\tResulting line: "; 
-                list->print();
-            }
+     if(inputFile.is_open()) { 
+        string name; 
+        while (getline(inputFile, name)) {
+            names.push_back(name);
         }
+        inputFile.close();
+    }
+    else { 
+        cout << "File not found" << endl; 
+    }
 
-        inputFile.close(); 
-    } else {
-        cout << "File not Found";
+    cout << "Store Opens: " << endl; 
+    for(int i = 0; i < 20; i++) { // looks through 20 time periods
+        if (i == 0) { // handles the first time period
+            for(int j = 0; j < 5; j++) { 
+                person = names.at(rand() % (MAX_NAME_SEL- MIN_NAME_SEL + 1) + MIN_NAME_SEL);
+                list->push_back(person);
+                cout << "\t" << person << " joins the line" << endl;
+            }
+            cout << "\tResulting line: ";
+            list->print(); 
+        } else { // handles every subsequent time period after the first
+            cout << "Time Step #" << (i + 1) << ": " << endl; 
+            // defines all the propabilities
+            int probServed = rand() % 100 + 1; 
+            int probJoin = rand() % 100 + 1; 
+            int probLeaveEnd = rand() % 100 + 1; 
+            int probLeaveAny = rand() % 100 + 1; 
+            int probVIP = rand() % 100 + 1; 
+
+            if (probServed <= 40 && list->getSize() > 0) { // person at front is served
+                cout << "\t" << list->getFront() << " is served" << endl; 
+                list->pop_front(); 
+            } 
+            if (probJoin <= 60) { // person added to back
+                person = names.at(rand() % (MAX_NAME_SEL- MIN_NAME_SEL + 1) + MIN_NAME_SEL);
+                cout << "\t" << person << " joins the line" << endl; 
+                list->push_back(person); 
+            } 
+            if (probLeaveEnd <= 20 && list->getSize() > 0) { // person at back leaves
+                cout << "\t" << list->getBack() << " exits the rear of the line" << endl; 
+                list->pop_back();
+            } 
+            
+            for(int j = 1; j <= list->getSize(); j++) { // loops throug each name
+                if (probLeaveAny <= 10  && list->getSize() > 0) { // anyone in line leaves
+                    cout << "\t" << list->getName(j) << " left the line" << endl;
+                    list->delete_pos(j);
+                    j--;
+                }
+                probLeaveAny = rand() % 100 + 1; 
+            }
+            
+            if (probVIP <= 10) { // VIP joins front
+                person = names.at(rand() % (MAX_NAME_SEL- MIN_NAME_SEL + 1) + MIN_NAME_SEL);
+                cout << "\t" << person << " (VIP) joins the front of the line" << endl; 
+                list->push_front(person); 
+            }
+
+            cout << "\tResulting line: "; 
+            list->print();
+        }
     }
 
     return 0;
