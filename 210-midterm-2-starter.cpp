@@ -308,10 +308,11 @@ int main() {
                     list->pop_back();
                 } 
                 
-                for(int j = 0; j < list->getSize(); j++) { // loops throug each name
+                for(int j = 1; j <= list->getSize(); j++) { // loops throug each name
                     if (probLeaveAny <= 10  && list->getSize() > 0) { // anyone in line leaves
                         cout << "\t" << list->getName(j) << " left the line" << endl;
-                        list->delete_pos(j);  
+                        list->delete_pos(j);
+                        j--;
                     }
                     probLeaveAny = rand() % 100 + 1; 
                 }
